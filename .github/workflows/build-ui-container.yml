@@ -23,14 +23,14 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Extract metadata (tags, labels)
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/perfetto-ui
+          images: ${{ vars.DOCKER_USERNAME }}/perfetto-ui
           tags: |
             type=raw,value=latest
 
@@ -50,7 +50,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Image Details" >> $GITHUB_STEP_SUMMARY
           echo "- **Registry:** Docker Hub" >> $GITHUB_STEP_SUMMARY
-          echo "- **Repository:** ${{ secrets.DOCKER_USERNAME }}/perfetto-ui" >> $GITHUB_STEP_SUMMARY
+          echo "- **Repository:** ${{ vars.DOCKER_USERNAME }}/perfetto-ui" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -61,8 +61,8 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Pull and Run" >> $GITHUB_STEP_SUMMARY
           echo '```bash' >> $GITHUB_STEP_SUMMARY
-          echo "docker pull ${{ secrets.DOCKER_USERNAME }}/perfetto-ui:latest" >> $GITHUB_STEP_SUMMARY
-          echo "docker run -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/perfetto-ui:latest" >> $GITHUB_STEP_SUMMARY
+          echo "docker pull ${{ vars.DOCKER_USERNAME }}/perfetto-ui:latest" >> $GITHUB_STEP_SUMMARY
+          echo "docker run -p 8080:8080 ${{ vars.DOCKER_USERNAME }}/perfetto-ui:latest" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Then open http://localhost:8080 in your browser." >> $GITHUB_STEP_SUMMARY
