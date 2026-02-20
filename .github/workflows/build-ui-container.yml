@@ -2,8 +2,8 @@ name: Build Perfetto UI Container
 
 on:
   push:
-    branches:
-      - '*-gr'
+    tags:
+      - 'v*'
 
 permissions:
   contents: read
@@ -31,8 +31,6 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ vars.DOCKER_USERNAME }}/perfetto-ui
-          tags: |
-            type=raw,value=latest
 
       - name: Build and push container image
         uses: docker/build-push-action@v5
